@@ -1,0 +1,96 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Healthy Diet Diary</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body id="page1">
+<div id="navbar" th:insert="navbar :: navbar"></div>
+<div class="bg">
+    <header>
+        <div class="tab_container">
+            <div id="tab1" class="tab_content">
+                <div class="main">
+                    <div class="wrapper">
+                        <figure class="img-indent-r"><img src="../images/page1-img1.jpg" alt=""></figure>
+                        <div class="extra-wrap">
+                            <div class="indent"><strong class="title" style="color: #056525">NUTRITION CONTROL</strong>
+                                <p class="p5" style="color: #056525">KEY TO YOUR HEALTH<br></p>
+                                <div class="btn-wrap"><span class="button"> <a
+                                        href="/bmr"><strong>CALCULATE BMR</strong></a> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container text-center my-4"><h3>Welcome to Healhty Diet Diary!</h3></div>
+    <div class="container my-6">
+        <div class="row text-left">
+            <div class="col-md-3">
+                <ul class="list-1">
+                    <h5>Healthy Lifestyle Basics</h5>
+                    <li>Balanced Diet</li>
+                    <li>Regular Physical Activity</li>
+                    <li>Maintaining a Regular Sleep Pattern</li>
+                    <li>Stress Management</li>
+                    <li>Drinking Water and Stay Hydrated</li>
+                    <li>Reducing Sitting and Screen Time</li>
+                    <li>Measuring and Watch Your Weight</li>
+                    <li>Taking Multivitamin Supplements</li>
+                    <li>Limit of Unhealthy Foods and Eating Healthy Meals</li>
+                    <li>Limit sugary drinks</li>
+                    <li>Avoid ultra-processed foods</li>
+                    <li>Avoid artificial trans fats</li>
+                </ul>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-8 my-6">
+                <div class="wrapper prev-indent-bot">
+                    <figure class="img-indent2"><img src="../images/page1-img4.jpg" alt=""></figure>
+                    <div class="extra-wrap">
+                        <h5 class="p1">Calories and energy balance</h5>
+                        Our bodies need energy to keep us alive and our organs functioning normally. When we eat
+                        and drink, we put energy into our bodies. Our bodies use up that energy through everyday
+                        movement, which includes everything from breathing to running.<br>
+                    </div>
+                    <p>
+                        To maintain a stable
+                        weight, the energy we put into our bodies must be the same as the
+                        energy we use through normal bodily functions and physical activity. An important part
+                        of a healthy diet is balancing the energy you put into your bodies with the energy you
+                        use. For example, the more physical activity we do, the more energy we use.<br> If you
+                        consume too much energy on 1 day, do not worry. Just try to take in less energy
+                        on the following days.<br>
+                        <b>Just one thing</b><br>
+                        Try this today: There are lots of suggestions on this list that can help you improve
+                        your health, but it’s best to put just one or two into practice at a time so you do not
+                        get burned out. As more of these healthy actions become habits, you can add more into
+                        your routine.<br>
+                        <br>
+                        You can find out the calorie content of some foods here:
+                        <b><a th:href="@{/products}">Products</a><br></b>
+                        To create your own Personal Diary <b><a th:href="@{/registration}">Register</a></b>
+                        or
+                        <b><a th:href="@{/login}">Login</a></b><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="main">
+        <hr>
+        <div class="aligncenter"><span>&copy; 2022 Healthy Diet Diary<br>
+        </span> Design by <a target="_blank" href="https://www.linkedin.com/in/svitlana-holotova/">Svitlana Holotova</a></div>
+    </div>
+</footer>
+</body>
+</html>

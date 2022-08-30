@@ -1,0 +1,194 @@
+<!--Дописать выбор категории выпадающим списком!
+-->
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:margin="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <meta http-eqiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>BMR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/A.style.css.pagespeed.cf.6gH3tK04P8.css">
+</head>
+<body>
+<div id="navbar" th:insert="navbar :: navbar"></div>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section"> Hello, <span sec:authentication="name"></span>
+                    ! Please enter information about you to save your data:</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch"
+                             style="background-color: #a4da21">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Fill the gaps</h3>
+                                <form th:action="@{/calorieCalculator}" method="POST" id="dataForm" name="dataForm"
+                                      class="needs-validation" novalidate>
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="validationWeight">Weight</label>
+                                                <input type="number" class="form-control" id="validationWeight"
+                                                       name="weight"
+                                                       placeholder="Weight in kgs" aria-describedby="inputGroupPrepend"
+                                                       required>
+                                                <div class="invalid-feedback">
+                                                    Please enter your weight
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="validationGoalWeight">Desired Weight</label>
+                                                <input type="number" class="form-control" name="goalWeight"
+                                                       id="validationGoalWeight" placeholder="Desired weight in kgs"
+                                                       aria-describedby="inputGroupPrepend" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter your desired weight
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="height">Height</label>
+                                                <input type="number" class="form-control" name="height"
+                                                       id="height" placeholder="Height in cm"
+                                                       aria-describedby="inputGroupPrepend" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter your height
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="age">Age</label>
+                                                <input type="number" class="form-control" name="age" id="age"
+                                                       placeholder="Age" aria-required="true"
+                                                       aria-describedby="inputGroupPrepend" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter your age
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="daysForResult">Days for result</label>
+                                                <input type="number" class="form-control" name="daysForResult"
+                                                       id="daysForResult"
+                                                       placeholder="Days" aria-describedby="inputGroupPrepend" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter number of days
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select class="form-select" id="gender" name="gender" required>
+                                                <option selected disabled value="">Choose your gender...</option>
+                                                <option value="MALE">MALE</option>
+                                                <option value="FEMALE">FEMALE</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select your gender</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="activityType" class="form-label">Activity Type</label>
+                                            <select class="form-select" id="activityType" name="activityType" required>
+                                                <option selected disabled value="">Choose your activity rate...</option>
+                                                <option value="MINIMAL">MINIMAL</option>
+                                                <option value="LOW">LOW</option>
+                                                <option value="MILD">MILD</option>
+                                                <option value="HEAVY">HEAVY</option>
+                                                <option value="EXTREME">EXTREME</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select activity type</div>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-12">
+                                            <input type="submit" value="Save" class="btn btn-primary btn-lg mt-4 mb-3 mx-2">
+                                            <div class="submitting"></div>
+                                        </div>
+                                        <br>
+                                        <h5>View recommended calorie intake <a href="/userStatistics" class="tooltip-test"
+                                                                 title="Statistics">Personal Statistics</a></h5>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+                            <div class="info-wrap bg-primary w-100 p-md-5 p-4" style="color: #a4da21">
+                                <h3><b>Calorie Calculator</b></h3>
+                                <p class="mb-4">The calorie calculator can be used to estimate the number of calories a
+                                    person should consume each day based on the goal of losing weight, gaining weight,
+                                    or
+                                    maintaining weight.</p>
+                                <div class="dbox w-100 d-flex align-items-start">
+                                    <div class="text pl-3">
+                                        <h5><b>Activity levels:</b></h5>
+                                        <p>
+                                            <b><u>minimal activity level</u></b> - sedentary work that does not require
+                                            significant physical exertion;
+                                        </p>
+                                        <p>
+                                            <b><u>low activity level</u></b> - intense exercise for at least 20 minutes
+                                            one to three times a week. This could be cycling, jogging, basketball,
+                                            swimming,
+                                            ice skating, etc. Or busy lifestyle that requires frequent walking;
+                                        </p>
+                                        <p>
+                                            <b><u>mild activity level</u></b> - intense training for at least 30-60
+                                            minutes three to four times a week;
+                                        </p>
+                                        <p>
+                                            <b><u>heavy activity</u></b> - intense exercise and sports 5-7 days a week;
+                                        </p>
+                                        <p>
+                                            <b><u>extreme level</u></b> - includes extremely active and / or very
+                                            energy-intensive activities: sports with an almost daily schedule and
+                                            several workouts during the day.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+        crossorigin="anonymous"></script>
+<script>
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+</body>
+</html>

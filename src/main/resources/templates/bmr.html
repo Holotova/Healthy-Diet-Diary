@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org" lang="en">
+
+<head>
+    <meta http-eqiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>BMR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+<div id="navbar" th:insert="navbar :: navbar"></div>
+<div class="container text-left mx-5 my-3">
+    <div class="row">
+        <div class="col-4" style="border-right:solid;">
+            <div class="text-left">
+                <h4>What is Basal metabolic rate (BMR)?</h4>
+                <p>Even when resting, your body burns calories by performing basic functions to sustain life, such
+                    as:</p>
+                - The beating of our heart<br>
+                - Cell production<br>
+                - Respiration<br>
+                - The maintenance of body temperature<br>
+                - Circulation<br>
+                - Nutrient processing<br>
+                <br>
+                <p><b>Basal metabolic rate is the number of calories your body needs to accomplish its most basic
+                    life-sustaining functions.</b></p>
+                <p>One popular way to estimate BMR is through the <b>Mifflin St Jeor Equation</b>, which takes into account weight,
+                    height, age, gender and activity type.</p>
+                <img src="../images/menFormula.png" alt="">
+                <img src="../images/womenFormula.png" alt="">
+
+            </div>
+        </div>
+        <div class="col-8">
+            <form th:action="@{/bmr}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="label" for="weight">Weight</label>
+                        <input type="number" class="form-control" id="weight" name="weight"
+                               placeholder="Enter your weight (kg)"
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">Please enter your weight</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="label" for="height">Height</label>
+                        <input type="number" class="form-control" id="height" name="height"
+                               placeholder="Enter your height (cm)"
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">Please enter your weight</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="label" for="age">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age"
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">Please enter your weight</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="label" for="gender">Gender</label>
+                        <select class="form-select" id="gender" name="gender"
+                                aria-describedby="inputGroupPrepend" required>
+                            <option selected disabled value="">Choose your gender...</option>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your gender</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="label" for="activityType">Activity Type</label>
+                        <select class="form-select" id="activityType" name="activityType"
+                                aria-describedby="inputGroupPrepend" required>
+                            <option selected disabled value="">Choose your activity rate...</option>
+                            <option value="MINIMAL">MINIMAL</option>
+                            <option value="LOW">LOW</option>
+                            <option value="MILD">MILD</option>
+                            <option value="HEAVY">HEAVY</option>
+                            <option value="EXTREME">EXTREME</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your activity type</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-secondary mt-4 mb-3 mx-2">1 Calculate BMR</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-secondary mt-4 mb-3 mx-2" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" formmethod="get">2 Show my BMR
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div class="container text-left my-2">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="../images/activity.png" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Why you might want to know your BMR?</h3>
+                        Your BMR can be used to help you gain, lose, or maintain your weight. By knowing how many calories you
+                        burn, you can know how many to consume. To put it simply:<br>
+                        <br>
+                        <b>- Is your goal to maintain your weight?</b> Consume the same number of calories that you burn.<br>
+                        <b>- Is your goal to gain weight?</b> Consume more calories than you burn.<br>
+                        <b>- Is your goal to lose weight?</b> Consume fewer calories than you burn.<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Your data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="card-text" th:text="|Age: ${user.age}|"></p>
+                <p class="card-text" th:text="|Weight: ${user.weight}|"></p>
+                <p class="card-text" th:text="|Height: ${user.height}|"></p>
+                <p class="card-text" th:text="|ActivityType: ${user.activityType}|"></p>
+                <h5 class="card-title"
+                    th:text="|Your BMR: ${#numbers.formatDecimal(user.basalMetabolicRate, 0, 2)}|"></h5>
+                <hr>
+                <h5>To evaluate all features of Healthy Diet Diary</h5>
+                <p>please <a href="/registration" class="tooltip-test" title="Registration">register</a> or
+                    <a href="/login" class="tooltip-test" title="Log in">log in</a></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+        crossorigin="anonymous"></script>
+<script>
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+</body>
+</html>
