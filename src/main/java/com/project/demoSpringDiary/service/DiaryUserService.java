@@ -133,7 +133,7 @@ public class DiaryUserService implements UserDetailsService {
         Predicate<String> isSorted = y -> y != null && !y.isEmpty();
         DiaryUser user = (DiaryUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Day> diary = new ArrayList<>();
-        String message = "You don't have any records. Go to Personal Diary page and add meals";
+        String message = "You don't have any records. Go to Personal Diary page, add meals and save Day Changes";
         if (isFiltered.test(filterDate)) {
             Optional<Day> optionalDay = dayRepository.findByDateFromDiaryAndUser(filterDate, user);
             if (optionalDay.isPresent()) {

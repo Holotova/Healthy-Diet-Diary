@@ -31,9 +31,13 @@ public class MealService {
         return caloriesPerServing;
     }
 
+    public Iterable<Meal> getAllMeals(){
+        return repository.findAll();
+    }
+
     public Meal getMealById(String id) {
         Optional<Meal> optional = repository.findById(id);
-        Meal meal = null;
+        Meal meal;
         if (optional.isPresent()) {
             meal = optional.get();
         } else {
@@ -45,7 +49,6 @@ public class MealService {
     public boolean isSaveDailyMeal(String productName, Double weight, LocalDate date) {
         DiaryUser user = (DiaryUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Meal> dailyMeal = new ArrayList<>();
-        String message = "Product not found. Check out other suitable product from Product list or detail your request";
         Product product = null;
         List<Product> products = productRepository.findByProductNameContainingIgnoreCase(productName);
         if (products.size() == 1) {

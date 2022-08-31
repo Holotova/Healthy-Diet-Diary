@@ -1,19 +1,25 @@
 package com.project.demoSpringDiary.service;
 
 import com.project.demoSpringDiary.model.Category;
+import com.project.demoSpringDiary.model.Meal;
 import com.project.demoSpringDiary.model.Product;
 import com.project.demoSpringDiary.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ProductService {
 
     private final ProductRepository repository;
+    private final MealService mealService;
 
     @Autowired
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, MealService mealService) {
         this.repository = repository;
+        this.mealService = mealService;
     }
 
     public void createAndSaveProduct(String productName, Category category, Double calories) {
@@ -57,5 +63,15 @@ public class ProductService {
         } else {
             return repository.findAll();
         }
+    }
+
+    public boolean isProductUsedByUser(String productId) {
+        List<Meal> mealList = (List<Meal>) mealService.getAllMeals();
+        Optional<String> productInMeal = mealList.stream()
+                .map(m -> m.getProduct())
+                .map(p -> p.getId())
+                .filter(id -> id.contains(productId))
+                .findAny();
+        return productInMeal.isPresent();
     }
 }

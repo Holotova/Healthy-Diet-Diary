@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http//www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http//www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      lang="en">
 <head>
     <meta http-eqiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Products</title>
@@ -14,47 +15,52 @@
         <hr>
         <h4>ADD NEW PRODUCT</h4>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="productName">Product name</label>
-                <input type="text" class="form-control" id="productName" name="productName"
-                       placeholder="Enter product name" aria-describedby="inputGroupPrepend" required>
-                <div class="invalid-feedback">
-                    Please enter product name
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="productName">Product name</label>
+                    <input type="text" class="form-control" id="productName" name="productName"
+                           placeholder="Enter product name" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please enter product name
+                    </div>
                 </div>
-                <label for="calories">Calories per 100g</label>
-                <input type="number" class="form-control" id="calories" name="calories"
-                       placeholder="Calories per 100g" aria-describedby="inputGroupPrepend" required>
-                <div class="invalid-feedback">
-                    Please enter calories
+                <div class="col-md-3">
+                    <label for="calories">Calories per 100g</label>
+                    <input type="number" class="form-control" id="calories" name="calories"
+                           placeholder="Calories per 100g" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Please enter calories
+                    </div>
+                </div>
+                <div class="col-md-3 my-4">
+                    <label for="category">Category</label>
+                    <select name="category" id="category" required>
+                        <option selected=""></option>
+                        <option value="FRUITS">FRUITS</option>
+                        <option value="VEGETABLES">VEGETABLES</option>
+                        <option value="MEAT">MEAT</option>
+                        <option value="FISH">FISH</option>
+                        <option value="MILK">MILK</option>
+                        <option value="SWEETS">SWEETS</option>
+                        <option value="CEREALS">CEREALS</option>
+                    </select>
+                    <div class="invalid-feedback">Please select category</div>
+                </div>
+                <div class="col-md-3 my-4">
+                    <button type="submit">Add new product</button>
                 </div>
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-4 mt-3">
-                <label for="category">Category</label>
-                <select name="category" id="category" required>
-                    <option selected=""></option>
-                    <option value="FRUITS">FRUITS</option>
-                    <option value="VEGETABLES">VEGETABLES</option>
-                    <option value="MEAT">MEAT</option>
-                    <option value="FISH">FISH</option>
-                    <option value="MILK">MILK</option>
-                    <option value="SWEETS">SWEETS</option>
-                    <option value="CEREALS">CEREALS</option>
-                </select>
-                <div class="invalid-feedback">Please select category</div>
-            </div>
-        </div>
-        <button type="submit">Add new product</button>
     </form>
     <hr>
+    <h3 th:text="${message}" th:style="#{message} != 0? 'color: red': 'color: red'"></h3>
     <div class="font-weight-bold"><h4>List of Products</h4></div>
     <br>
     <!--    filter List of Products-->
     <div class="row">
         <div class="col">
-            <form method="get">
+            <form>
                 <select id="filter" name="filter">
                     <option selected=""></option>
                     <option value="FRUITS">FRUITS</option>
@@ -91,6 +97,7 @@
             <th scope="col">NAME</th>
             <th scope="col">CATEGORY</th>
             <th scope="col">CALORIES (Per 100g)</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -98,6 +105,13 @@
             <td th:text="${product.productName}"></td>
             <td th:text="${product.category}"></td>
             <td th:text="${product.caloriesPer100g}"></td>
+            <td>
+                <form sec:authorize="hasAuthority('ADMIN')" action="#" th:action="@{'products/delete/{id}'(id = ${product.id})}" th:method="delete">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="id" th:value="${product.id}"/>
+                    <button type="submit" class="btn btn-secondary">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -124,6 +138,8 @@
     });
   }, false);
 })();
+
+
 </script>
 </body>
 </html>
